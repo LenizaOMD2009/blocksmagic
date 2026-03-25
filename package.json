@@ -1,0 +1,26 @@
+{
+  "name": "blocksmagic",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/LenizaOMD2009/blocksmagic#readme",
+  "bugs": {
+    "url": "https://github.com/LenizaOMD2009/blocksmagic/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LenizaOMD2009/blocksmagic.git"
+  },
+  "license": "MIT",
+  "author": "Leniza Oliveira Mendes",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "knex": "^3.2.5",
+    "pg": "^8.20.0"
+  }
+}
