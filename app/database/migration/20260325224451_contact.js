@@ -16,14 +16,14 @@ export function up(knex) {
             .onUpdate('CASCADE')
             .onDelete('CASCADE'); // Se o cliente for apagado, os contatos dele somem
 
-        //data e hora criado
-        table.timestamps('criado_em', { useTz: false})
-        .defaultTo(knex.fn.now())
-        .comment('Data e hora de criação do registro');
-        //data e hora atualizado
-        table.timestamps('atualizado_em', { useTz: false})
-        .defaultTo(knex.fn.now())
-        .comment('Data e hora da última atualizado do registro');
+         // Data e hora de criação 
+        table.timestamp('criado_em', { useTz: false })
+            .defaultTo(knex.fn.now())
+            .comment('Data e hora de criação do registro');
+        // Data e hora da atualização 
+        table.timestamp('atualizado_em', { useTz: false })
+            .defaultTo(knex.fn.now())
+            .comment('Data e hora da última atualização do registro');
     });
 }
 

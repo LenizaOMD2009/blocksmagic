@@ -1,40 +1,32 @@
-export function up(knex) {
+exports.up = function (knex) {
     return knex.schema.createTable('address', (table) => {
-        table.bigIncrements('id').primary();
-        table.text('logradouro').notNullable(); // Rua, Av, etc.
-        table.string('numero', 10);
-        table.text('complemento');
-        table.text('bairro');
-        table.string('cep', 8);
+        table.comment('Tabela de endereço disponíveis no sistema');
+        table.bigIncrements('id').primary(); //Código cidade
+        table.bigInteger('id_cidade');//Código cliente
+        table.bigInteger('id_cliente');
+        table.text('cep').nullable();
+        table.text('numero').nullable();
+        table.text('logradouro').nullable();
+        table.text('bairro').nullable();
+        table.text('complemento').nullable();
+        table.text('referencia').nullable();
+        table.text('ibge').nullable();
+        table.text('titulo').nullable();
+        table.boolean('endereco_padrao').defaultTo(false);
+         // Data e hora de criação 
+        table.timestamp('criado_em', { useTz: false })
+            .defaultTo(knex.fn.now())
+            .comment('Data e hora de criação do registro');
+        // Data e hora da atualização 
+        table.timestamp('atualizado_em', { useTz: false })
+            .defaultTo(knex.fn.now())
+            .comment('Data e hora da última atualização do registro');
 
-        // Relacionamento com a Cidade (Foreign Key)
-        table.bigInteger('city_id')
-            .unsigned()
-            .notNullable()
-            .references('id')
-            .inTable('city')
-            .onUpdate('CASCADE')
-            .onDelete('RESTRICT');
-
-        // Se o endereço pertencer a um Cliente específico:
-        table.bigInteger('customer_id')
-            .unsigned()
-            .references('id')
-            .inTable('customer')
-            .onUpdate('CASCADE')
-            .onDelete('CASCADE');
-
-        //data e hora criado
-        table.timestamps('criado_em', { useTz: false})
-        .defaultTo(knex.fn.now())
-        .comment('Data e hora de criação do registro');
-        //data e hora atualizado
-        table.timestamps('atualizado_em', { useTz: false})
-        .defaultTo(knex.fn.now())
-        .comment('Data e hora da última atualizado do registro');
+        table.foreign('id_cidade').references('id').inTable('city').onDelete('CASCADE').onUpdate('NO ACTION');
+        table.foreign('id_cliente').references('id').inTable('customer').onDelete('CASCADE').onUpdate('NO ACTION');
     });
-}
+};
 
-export function down(knex) {
+exports.down = function (knex) {
     return knex.schema.dropTable('address');
-}
+};

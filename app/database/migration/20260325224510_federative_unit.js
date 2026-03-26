@@ -1,30 +1,23 @@
-export function up(knex) {
+exports.up = function (knex) {
     return knex.schema.createTable('federative_unit', (table) => {
+        table.comment('Tabela com os dados de estado do Brasil');
         table.bigIncrements('id').primary();
-        table.text('nome').notNullable();
-        table.string('sigla', 2).notNullable();
-        table.integer('codigo_ibge'); // Ex: 11 para Rondônia
-
-        // Relacionamento com o País
-        table.bigInteger('country_id')
-            .unsigned()
-            .notNullable()
-            .references('id')
-            .inTable('country')
-            .onUpdate('CASCADE')
-            .onDelete('RESTRICT');
-
-        //data e hora criado
-        table.timestamps('criado_em', { useTz: false})
-        .defaultTo(knex.fn.now())
-        .comment('Data e hora de criação do registro');
-        //data e hora atualizado
-        table.timestamps('atualizado_em', { useTz: false})
-        .defaultTo(knex.fn.now())
-        .comment('Data e hora da última atualizado do registro');
+        table.bigInteger('id_pais');
+        table.text('nome').nullable();
+        table.text('codigo').nullable();
+        table.text('sigla').nullable();
+         // Data e hora de criação 
+        table.timestamp('criado_em', { useTz: false })
+            .defaultTo(knex.fn.now())
+            .comment('Data e hora de criação do registro');
+        // Data e hora da atualização 
+        table.timestamp('atualizado_em', { useTz: false })
+            .defaultTo(knex.fn.now())
+            .comment('Data e hora da última atualização do registro');
+        table.foreign('id_pais').references('id').inTable('country').onDelete('CASCADE').onUpdate('NO ACTION'); 
     });
-}
+};
 
-export function down(knex) {
+exports.down = function (knex) {
     return knex.schema.dropTable('federative_unit');
-}
+};
