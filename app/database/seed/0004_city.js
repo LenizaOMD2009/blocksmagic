@@ -1,13 +1,20 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
- */
-exports.seed = async function(knex) {
-  // Deletes ALL existing entries
-  await knex('table_name').del()
-  await knex('table_name').insert([
-    {id: 1, colName: 'rowValue1'},
-    {id: 2, colName: 'rowValue2'},
-    {id: 3, colName: 'rowValue3'}
-  ]);
+const URL_CIDADE = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/';
+exports.seed = async function (knex) {
+  await knex('city').del();
+  const UFs = await knex('federative_unit').select('id', 'codigo');
+  if (UFs.length <= 0) {
+    throw new Error("Restrição: Não existem estado cadastrado!");
+  }
+  for (const uf of UFs) {
+    const URL_MUNICIPIO_POR_ESTADO = URL_CIDADE + uf.codigo + '/municipios';
+    console.log(URL_MUNICIPIO_POR_ESTADO);
+    const response = await fetch(URL_MUNICIPIO_POR_ESTADO);
+    const cidades = await response.json();
+    const data = cidades.map((cidade) => ({
+      id_uf: uf.id,
+      codigo: cidade?.id,
+      nome: cidade?.nome
+    }));
+    await knex('city').insert(data);
+  };
 };
