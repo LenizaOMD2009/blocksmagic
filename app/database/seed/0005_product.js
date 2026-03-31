@@ -1,9 +1,23 @@
-exports.seed = async function(knex) {
-  await knex('product').del();
+const { faker } = require("@faker-js/faker");
 
-  await knex('product').insert([
-    {id: 1, colName: 'rowValue1'},
-    {id: 2, colName: 'rowValue2'},
-    {id: 3, colName: 'rowValue3'}
-  ]);
+exports.seed = async function (knex) {
+    await knex('product').del();
+
+    const batchSize = 500;
+
+    const total = 1000;
+
+    const unidades = ['UN', 'KG', 'G', 'LT', 'ML', 'CX', 'PC', 'FD'];
+    for (let i = 0; i < total; i += batchSize) {
+        const batch = Array.from({ length: batchSize }, () => ({
+            nome: faker.commerce.product(),
+            codigo_barra: faker.commerce.upc(),
+            unidade: faker.helpers.arrayElement(unidades),
+            preco_compra: faker.commerce.price({ min: 20, max: 150 }),
+            preco_venda: faker.commerce.price({ min: 155, max: 400 }),
+            descricao: faker.commerce.productDescription(),
+            ativo: faker.datatype.boolean(),
+        }));
+        await knex('product').insert(batch);
+    }
 };

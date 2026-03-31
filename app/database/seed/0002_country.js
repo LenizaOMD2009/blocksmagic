@@ -1,4 +1,4 @@
-//
+// Usa o fetch nativo do Node.js 18+ — sem necessidade de instalar node-fetch
 const URL_PAISES = 'https://servicodados.ibge.gov.br/api/v1/paises';
 export async function seed(knex) {
   
