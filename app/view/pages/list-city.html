@@ -1,0 +1,35 @@
+{% extends "layouts/main.html" %}
+
+{% block title %}Cidades{% endblock %}
+
+{% block content %}
+<h2>Lista de Cidades</h2>
+<div class="row">
+    <div class="col-12 mb-2">
+        <button class="btn btn-success"
+            onclick="api.window.openModal('pages/city', { width: 900, height: 600, title: 'Cadastrar Cidade' })">
+            <i class="fa-solid fa-plus"></i>
+            Nova cidade
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table id="table-city" class="table table-striped table-hover table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Código</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script defer type="module" src="file:///{{ assets }}/js/list-city.js"></script>
+{% endblock %}

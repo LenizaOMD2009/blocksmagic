@@ -2,7 +2,6 @@
     "name": "blocksmagic",
     "version": "1.0.0",
     "main": "main.js",
-    
     "private": true,
     "scripts": {
         "start": "chcp 65001 >nul && electron .",
@@ -94,6 +93,5 @@
         "nunjucks": "^3.2.4",
         "pg": "^8.20.0",
         "sweetalert2": "^11.26.23"
-  }
-
+    }
 }

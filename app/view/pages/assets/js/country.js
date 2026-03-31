@@ -3,26 +3,9 @@ const Action = document.getElementById('action')
 const Id = document.getElementById('id')
 const form = document.getElementById('form');
 
-// CARREGA AS EMPRESAS NO SELECT
-(async () => {
-    try {
-        const result = await api.enterprise.find({ limit: 9999 });
-        const select = document.getElementById('enterprise_id');
-        
-        result.data.forEach(enterprise => {
-            const option = document.createElement('option');
-            option.value = enterprise.id;
-            option.textContent = enterprise.razao_social;
-            select.appendChild(option);
-        });
-    } catch (err) {
-        console.error('Erro ao carregar empresas:', err);
-    }
-})();
-
 //  CARREGA DADOS DE EDIÇÃO (se existirem)
 (async () => {
-    const editData = await api.temp.get('users:edit');
+    const editData = await api.temp.get('country:edit');
     if (editData) {
         // Modo edição
         Action.value = editData.action || 'e';
@@ -35,9 +18,6 @@ const form = document.getElementById('form');
 
             if (field.type === 'checkbox') {
                 field.checked = value === true || value === 'true';
-            } else if (field.type === 'password') {
-                // Não preenche a senha em modo edição
-                continue;
             } else {
                 field.value = value || '';
             }
@@ -58,8 +38,8 @@ InsertButton.addEventListener('click', async () => {
     try {
 
         const response = Action.value === 'c'
-            ? await api.users.insert(data)
-            : await api.users.update(id, data);
+            ? await api.country.insert(data)
+            : await api.country.update(id, data);
 
         if (!response.status) {
             toast('error', 'Erro', response.msg, timer);

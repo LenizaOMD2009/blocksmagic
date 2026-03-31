@@ -1,11 +1,11 @@
 {% extends "layouts/main.html" %}
 
-{% block title %}Novo Usuário{% endblock %}
+{% block title %}Novo Fornecedor{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <h2>Cadastro de Usuário</h2>
+        <h2>Cadastro de Fornecedor</h2>
     </div>
 </div>
 <form id="form">
@@ -14,32 +14,36 @@
     <div class="row">
         <div class="col-12">
             <div class="form-floating mb-3">
-                <select class="form-select" id="enterprise_id" name="enterprise_id" required>
-                    <option value="">Selecione uma empresa...</option>
-                </select>
-                <label for="enterprise_id">Empresa</label>
+                <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia" placeholder="example" autofocus>
+                <label for="nome_fantasia">Nome Fantasia</label>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="example" autofocus>
-                <label for="nome">Nome do Usuário</label>
+                <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="example">
+                <label for="razao_social">Razão Social</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="example">
+                <label for="cnpj">CNPJ</label>
             </div>
         </div>
     </div>
     <div class="row">
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="inscricao_estadual" name="inscricao_estadual" placeholder="example">
+                <label for="inscricao_estadual">Inscrição Estadual</label>
+            </div>
+        </div>
         <div class="col-6">
             <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="email" name="email" placeholder="example">
                 <label for="email">Email</label>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="senha" name="senha" placeholder="example">
-                <label for="senha">Senha</label>
             </div>
         </div>
     </div>
@@ -66,5 +70,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="file:///{{ assets }}/js/users.js"></script>
+<script src="file:///{{ assets }}/js/supplier.js"></script>
 {% endblock %}

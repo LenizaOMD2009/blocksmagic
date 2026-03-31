@@ -24,14 +24,13 @@ export default class Users {
             return { status: false, msg: 'O campo senha é obrigatório', id: null, data: [] };
         }
 
+        if (!data.enterprise_id) {
+            return { status: false, msg: 'Selecione uma empresa', id: null, data: [] };
+        }
+
         try {
 
             const clean = Users.#sanitize(data);
-            
-            // Define enterprise_id padrão se não for fornecido
-            if (!clean.enterprise_id) {
-                clean.enterprise_id = 1;
-            }
 
             const [result] = await connection(Users.table)
                 .insert(clean)

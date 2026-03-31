@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% block title %}Novo País{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>Cadastro de País</h2>
+    </div>
+</div>
+<form id="form">
+    <input type="hidden" id="id" name="id">
+    <input type="hidden" id="action" name="action">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="example" autofocus>
+                <label for="nome">Nome do País</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="example">
+                <label for="codigo">Código (ISO)</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="localizacao" name="localizacao" placeholder="example">
+                <label for="localizacao">Localização</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="lingua" name="lingua" placeholder="example">
+                <label for="lingua">Língua</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="moeda" name="moeda" placeholder="example">
+                <label for="moeda">Moeda</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-outline-success" id="insert">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Salvar
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="file:///{{ assets }}/js/country.js"></script>
+{% endblock %}
