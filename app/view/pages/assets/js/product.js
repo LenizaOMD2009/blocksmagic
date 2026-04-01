@@ -3,6 +3,17 @@ const Action = document.getElementById('action')
 const Id = document.getElementById('id')
 const form = document.getElementById('form');
 Inputmask('9.999999.999999').mask('#codigo_barra');
+Inputmask("currency", {
+    radixPoint: ',',
+    inputtype: "text",
+    prefix: 'R$ ',
+    autoGroup: true,
+    groupSeparator: '.',
+    rightAlign: false,
+    onBeforeMask: function (value) {
+        return String(value).replace('.', ',');
+    }
+}).mask("#preco_venda, #preco_compra");
 
 //  CARREGA DADOS DE EDIÇÃO (se existirem)
 (async () => {
@@ -19,6 +30,20 @@ Inputmask('9.999999.999999').mask('#codigo_barra');
 
             if (field.type === 'checkbox') {
                 field.checked = value === true || value === 'true';
+            } else if (key === 'codigo_barra') {
+                field.value = Inputmask.format(value || '', '9.999999.999999');
+            } else if (key === 'preco_venda' || key === 'preco_compra') {
+                field.value = Inputmask.format(value || '', {
+                    radixPoint: ',',
+                    inputtype: "text",
+                    prefix: 'R$ ',
+                    autoGroup: true,
+                    groupSeparator: '.',
+                    rightAlign: false,
+                    onBeforeMask: function (val) {
+                        return String(val).replace('.', ',');
+                    }
+                });
             } else {
                 field.value = value || '';
             }

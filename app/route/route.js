@@ -5,10 +5,7 @@ import Product from '../controller/Product.js';
 import Users from '../controller/Users.js';
 import Enterprise from '../controller/Enterprise.js';
 import Supplier from '../controller/Supplier.js';
-import Contact from '../controller/Contact.js';
-import Country from '../controller/Country.js';
-import FederativeUnit from '../controller/Federative_Unit.js';
-import City from '../controller/City.js';
+
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
@@ -87,7 +84,7 @@ ipcMain.handle('customer:delete', async (_e, id) => {
     return result;
 });
 
-/////  Produto
+/////  PRODUTO
 ipcMain.handle('product:insert', async (_e, data) => {
     const result = await Product.insert(data);
     if (result.status) broadcastReload('product:reload');
@@ -190,113 +187,5 @@ ipcMain.handle('supplier:update', async (_e, id, data) => {
 ipcMain.handle('supplier:delete', async (_e, id) => {
     const result = await Supplier.delete(id);
     if (result.status) broadcastReload('supplier:reload');
-    return result;
-});
-
-/////  CONTACT
-ipcMain.handle('contact:insert', async (_e, data) => {
-    const result = await Contact.insert(data);
-    if (result.status) broadcastReload('contact:reload');
-    return result;
-});
-
-ipcMain.handle('contact:find', async (_e, where = {}) => {
-    return await Contact.find(where);
-});
-
-ipcMain.handle('contact:findById', async (_e, id) => {
-    return await Contact.findById(id);
-});
-
-ipcMain.handle('contact:update', async (_e, id, data) => {
-    const result = await Contact.update(id, data);
-    if (result.status) broadcastReload('contact:reload');
-    return result;
-});
-
-ipcMain.handle('contact:delete', async (_e, id) => {
-    const result = await Contact.delete(id);
-    if (result.status) broadcastReload('contact:reload');
-    return result;
-});
-
-/////  COUNTRY
-ipcMain.handle('country:insert', async (_e, data) => {
-    const result = await Country.insert(data);
-    if (result.status) broadcastReload('country:reload');
-    return result;
-});
-
-ipcMain.handle('country:find', async (_e, where = {}) => {
-    return await Country.find(where);
-});
-
-ipcMain.handle('country:findById', async (_e, id) => {
-    return await Country.findById(id);
-});
-
-ipcMain.handle('country:update', async (_e, id, data) => {
-    const result = await Country.update(id, data);
-    if (result.status) broadcastReload('country:reload');
-    return result;
-});
-
-ipcMain.handle('country:delete', async (_e, id) => {
-    const result = await Country.delete(id);
-    if (result.status) broadcastReload('country:reload');
-    return result;
-});
-
-/////  FEDERATIVE_UNIT
-ipcMain.handle('federative_unit:insert', async (_e, data) => {
-    const result = await FederativeUnit.insert(data);
-    if (result.status) broadcastReload('federative_unit:reload');
-    return result;
-});
-
-ipcMain.handle('federative_unit:find', async (_e, where = {}) => {
-    return await FederativeUnit.find(where);
-});
-
-ipcMain.handle('federative_unit:findById', async (_e, id) => {
-    return await FederativeUnit.findById(id);
-});
-
-ipcMain.handle('federative_unit:update', async (_e, id, data) => {
-    const result = await FederativeUnit.update(id, data);
-    if (result.status) broadcastReload('federative_unit:reload');
-    return result;
-});
-
-ipcMain.handle('federative_unit:delete', async (_e, id) => {
-    const result = await FederativeUnit.delete(id);
-    if (result.status) broadcastReload('federative_unit:reload');
-    return result;
-});
-
-/////  CITY
-ipcMain.handle('city:insert', async (_e, data) => {
-    const result = await City.insert(data);
-    if (result.status) broadcastReload('city:reload');
-    return result;
-});
-
-ipcMain.handle('city:find', async (_e, where = {}) => {
-    return await City.find(where);
-});
-
-ipcMain.handle('city:findById', async (_e, id) => {
-    return await City.findById(id);
-});
-
-ipcMain.handle('city:update', async (_e, id, data) => {
-    const result = await City.update(id, data);
-    if (result.status) broadcastReload('city:reload');
-    return result;
-});
-
-ipcMain.handle('city:delete', async (_e, id) => {
-    const result = await City.delete(id);
-    if (result.status) broadcastReload('city:reload');
     return result;
 });

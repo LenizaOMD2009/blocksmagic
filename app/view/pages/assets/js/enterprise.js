@@ -19,6 +19,8 @@ Inputmask('99.999.999/9999-99').mask('#cnpj');
 
             if (field.type === 'checkbox') {
                 field.checked = value === true || value === 'true';
+            } else if (key === 'cnpj') {
+                field.value = Inputmask.format(value || '', '99.999.999/9999-99');
             } else {
                 field.value = value || '';
             }

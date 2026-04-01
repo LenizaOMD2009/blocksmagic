@@ -6,7 +6,12 @@ api.product.onReload(() => {
 Datatables.SetTable('#table-products', [
     { data: 'id' },
     { data: 'nome' },
-    { data: 'codigo_barra' },
+    {
+        data: 'codigo_barra',
+        render: function (data) {
+            return Inputmask.format(data || '', '9.999999.999999');
+        }
+    },
     { data: 'unidade' },
     {
         data: 'preco_compra',

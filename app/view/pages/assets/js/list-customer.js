@@ -8,7 +8,12 @@ api.customer.onReload(() => {
 Datatables.SetTable('#table-customers', [
     { data: 'id' },
     { data: 'nome' },
-    { data: 'cpf' },
+    {
+        data: 'cpf',
+        render: function (data) {
+            return Inputmask.format(data || '', '999.999.999-99');
+        }
+    },
     {
         data: null,
         orderable: false,

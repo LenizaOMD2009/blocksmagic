@@ -9,7 +9,12 @@ Datatables.SetTable('#table-supplier', [
     { data: 'id' },
     { data: 'nome_fantasia' },
     { data: 'razao_social' },
-    { data: 'cnpj' },
+    {
+        data: 'cnpj',
+        render: function (data) {
+            return Inputmask.format(data || '', '99.999.999/9999-99');
+        }
+    },
     {
         data: null,
         orderable: false,

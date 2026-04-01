@@ -10,6 +10,9 @@ exports.seed = async function (knex) {
     for (const uf of UFs) {
         const URL_MUNICIPIO_POR_ESTADO = URL_CIDADE + uf.codigo + '/municipios';
         const response = await fetch(URL_MUNICIPIO_POR_ESTADO);
+        if (!response.ok) {
+            throw new Error(`Falha ao buscar cidades para UF ${uf.codigo}: ${response.statusText}`);
+        }
         const cidades = await response.json();
         const data = cidades.map((cidade) => ({
             id_uf: uf.id,

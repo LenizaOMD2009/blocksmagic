@@ -20,6 +20,8 @@ Inputmask('999.999.999-99').mask('#cpf');
 
             if (field.type === 'checkbox') {
                 field.checked = value === true || value === 'true';
+            } else if (key === 'cpf') {
+                field.value = Inputmask.format(value || '', '999.999.999-99');
             } else {
                 field.value = value || '';
             }
