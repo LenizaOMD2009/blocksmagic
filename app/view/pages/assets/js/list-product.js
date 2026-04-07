@@ -6,12 +6,7 @@ api.product.onReload(() => {
 Datatables.SetTable('#table-products', [
     { data: 'id' },
     { data: 'nome' },
-    {
-        data: 'codigo_barra',
-        render: function (data) {
-            return Inputmask.format(data || '', '9.999999.999999');
-        }
-    },
+    { data: 'codigo_barra' },
     { data: 'unidade' },
     {
         data: 'preco_compra',
@@ -84,7 +79,7 @@ async function deleteProduct(id) {
 }
 async function editProduct(id) {
     try {
-        // 1. Busca os dados completos do cliente
+        // 1. Busca os dados completos do produto
         const product = await api.product.findById(id);
         if (!product) {
             toast('error', 'Erro', 'Produto não encontrado.');
@@ -97,8 +92,8 @@ async function editProduct(id) {
         });
         // 3. Abre a modal
         api.window.openModal('pages/product', {
-            width: 600,
-            height: 500,
+            width: 800,
+            height: 420,
             title: 'Editar Produto',
         });
     } catch (err) {
