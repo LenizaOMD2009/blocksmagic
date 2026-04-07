@@ -2,7 +2,7 @@
     "name": "blocksmagic",
     "version": "1.0.0",
     "main": "main.js",
-    "type": "module",
+  
     "private": true,
     "scripts": {
         "start": "chcp 65001 >nul && electron .",
@@ -86,8 +86,9 @@
     },
     "devDependencies": {
         "electron": "^41.0.4",
-        "electron-builder": "^25.1.8",
-        "jest": "^30.3.0"
+        "electron-builder": "^26.8.1",
+        "jest": "^30.3.0",
+        "vitest": "^4.1.2"
     },
     "dependencies": {
         "@faker-js/faker": "^10.4.0",
