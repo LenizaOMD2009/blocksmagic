@@ -17,17 +17,16 @@ describe('SellingPriceCalculator', () => {
     // Testa o erro de – divisão por zero getData()
     describe('getData() – divisão por zero', () => {
         it('deve lançar um erro quando o divisor for igual a zero', () => {
-            // taxRate=1.00 | marginRate=0 | opRate=0 → divisor = 1 - 1 = 0
+            // totalTax=50 | profitMargin=50 | operatingCost=0 → divisor = 1 - (0.5 + 0.5 + 0) = 0
             expect(() =>
                 SellingPriceCalculator
                     .create()
-                    .addPurchasePrice(0)
-                    .addTotalTax(0)
-                    .addProfitMargin(0)
+                    .addPurchasePrice(100)
+                    .addTotalTax(50)
+                    .addProfitMargin(50)
                     .addOperatingCost(0)
                     .getData()
-
-            ).toThrow('A soma de impostos, margem de lucro e custo operacional não pode ser 0');
-        });
+                ).toThrow('A soma dos percentuais (100.0000%) deve ser menor que 100%. Reduza imposto, margem ou custo operacional.');
+            });
     });
 });

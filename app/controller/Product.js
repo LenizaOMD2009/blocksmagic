@@ -51,4 +51,63 @@ export default class Product {
             .first();
         return row || null;
     }
+    //Implementamos a criação do produto
+    static async create(data) {
+        const clean = Product.#sanitize(data);  
+        try {
+            const [id] = await connection(Product.table).insert(clean).returning('id');
+            return { status: true, msg: 'Criado com sucesso!', id };
+        }
+        catch (err) {
+            return { status: false, msg: 'Erro: ' + err.message };
+        }
+    }
+
+    // Compatibilidade com a rota que chama Product.insert
+    static async insert(data) {
+        return Product.create(data);
+    }
+
+    //Implementamos a atualização do produto
+    static async update(id, data) {
+        if (!id) return { status: false, msg: 'ID é obrigatório' };
+        const clean = Product.#sanitize(data);
+        try {
+            await connection(Product.table).where({ id }).
+                update(clean);
+            return { status: true, msg: 'Atualizado com sucesso!' };
+        } catch (err) {
+            return { status: false, msg: 'Erro: ' + err.message };
+        }       
+    }
+
+    //Implementamos a exclusão do produto
+    static async delete(id) {
+        if (!id) return { status: false, msg: 'ID é obrigatório' };
+
+        try {
+            await connection(Product.table).where({ id }).del();
+            return { status: true, msg: 'Excluído com sucesso!' };
+        } catch (err) {
+            return { status: false, msg: 'Erro: ' + err.message };
+        }
+    }
+
+    //Remove campos vazios e converte tipos.
+    static #sanitize(data) {
+        // Campos de controle do form — não existem no banco
+        const ignore = ['id', 'action'];
+
+        const clean = {};
+
+        for (const [key, value] of Object.entries(data)) {
+            if (ignore.includes(key)) continue;
+            if (value === '' || value === null || value === undefined) continue;
+            if (value === 'true') { clean[key] = true; continue; }
+            if (value === 'false') { clean[key] = false; continue; }
+            clean[key] = value;
+        }
+
+        return clean;
+    }
 }

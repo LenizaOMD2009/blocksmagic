@@ -4,9 +4,9 @@ export async function seed(knex) {
 
   await knex('customer').del();
 
-  const batchSize = 1000;
+  const batchSize = 100;
 
-  const total = 1000;
+  const total = 7;
 
   for (let i = 0; i < total; i += batchSize) {
     const batch = Array.from({ length: batchSize }, () => ({

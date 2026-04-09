@@ -1,5 +1,7 @@
 {% extends "layouts/main.html" %}
-
+{% block styles %}
+<link rel="stylesheet" href="file:///{{ assets }}//css/product.css">
+{% endblock %}
 {% block title %}Novo Produto{% endblock %}
 
 {% block content %}
@@ -71,6 +73,28 @@
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="ativo" name="ativo" checked>
                 <label class="form-check-label" for="ativo">Produto ativo?</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="resultado-row mb-2 d-none" id="resultado-row">
+                <div class="metrica-col">
+                    <span class="metrica-label">Total de imposto</span>
+                    <span class="metrica-valor" id="val-imposto">—</span>
+                </div>
+                <div class="metrica-col">
+                    <span class="metrica-label">Custo operacional</span>
+                    <span class="metrica-valor" id="val-custo">—</span>
+                </div>
+                <div class="metrica-col">
+                    <span class="metrica-label">Margem de lucro</span>
+                    <span class="metrica-valor" id="val-margem">—</span>
+                </div>
+                <div class="metrica-col destaque">
+                    <span class="metrica-label">Preço de venda sugerido</span>
+                    <span class="metrica-valor" id="val-venda">—</span>
+                </div>
             </div>
         </div>
     </div>
