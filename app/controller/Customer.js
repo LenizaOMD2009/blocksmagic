@@ -1,5 +1,42 @@
 import connection from '../database/Connection.js';
+import { Print } from '../mixin/Print.js';
+
 export default class Customer {
+    // ... seus métodos existentes (insert, find, etc)
+    // NOVO MÉTODO: Gera a impressão do cliente
+    static async print(id) {
+        try {
+            // 1. Busca os dados do cliente no banco
+            const cliente = await Customer.findById(id);
+            
+            if (!cliente) {
+                return { status: false, msg: 'Cliente não encontrado para impressão' };
+            }
+
+            // 2. Monta o HTML básico com os dados do cliente
+            const html = `
+                <div style="font-family: sans-serif; padding: 20px;">
+                    <h1 style="border-bottom: 2px solid #333;">Ficha do Cliente</h1>
+                    <p><strong>ID:</strong> ${cliente.id}</p>
+                    <p><strong>Nome:</strong> ${cliente.nome}</p>
+                    <p><strong>CPF:</strong> ${cliente.cpf}</p>
+                    <hr>
+                    <p style="font-size: 12px; color: #666;">Relatório gerado em: ${new Date().toLocaleString()}</p>
+                </div>
+            `;
+
+            // 3. Chama a sua classe Print (que agora tem o código do BrowserWindow)
+            await Print.create()
+                .stringHTML(html)
+                .print();
+
+            return { status: true, msg: 'Impressão enviada com sucesso!' };
+
+        } catch (err) {
+            return { status: false, msg: 'Erro na impressão: ' + err.message };
+        }
+    }
+ 
     // Tabela no banco
     static table = 'customer';
 

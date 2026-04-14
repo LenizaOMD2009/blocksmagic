@@ -19,10 +19,13 @@ contextBridge.exposeInMainWorld('api', {
         findById(id) { return ipcRenderer.invoke('customer:findById', id); },
         update(id, data) { return ipcRenderer.invoke('customer:update', id, data); },
         delete(id) { return ipcRenderer.invoke('customer:delete', id); },
+        print(id) { return ipcRenderer.invoke('customer:print', id); }, 
+        
         onReload(callback) {
             ipcRenderer.on('customer:reload', () => callback());
         },
     },
+
     product: {
         insert(data) { return ipcRenderer.invoke('product:insert', data); },
         find(where) { return ipcRenderer.invoke('product:find', where); },

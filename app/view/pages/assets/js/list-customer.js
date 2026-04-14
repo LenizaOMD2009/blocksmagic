@@ -13,6 +13,9 @@ Datatables.SetTable('#table-customers', [
         searchable: false,
         render: function (row) {
             return `
+                <button onclick="printCustomer(${row.id})" class="btn btn-xs btn-info btn-sm">
+                    <i class="fa-solid fa-print"></i> Imprimir
+                </button>
                 <button onclick="editCustomer(${row.id})" class="btn btn-xs btn-warning btn-sm">
                     <i class="fa-solid fa-pen-to-square"></i> Editar
                 </button>
@@ -45,27 +48,24 @@ async function deleteCustomer(id) {
     }
 }
 async function editCustomer(id) {
+}
+async function printCustomer(id) {
     try {
-        // 1. Busca os dados completos do cliente
-        const customer = await api.customer.findById(id);
-        if (!customer) {
-            toast('error', 'Erro', 'Cliente não encontrado.');
-            return;
+        // Agora chamamos o caminho correto que você liberou no preload
+        const response = await api.customer.print(id);
+
+        if (response.status) {
+            toast('success', 'Sucesso', 'O PDF do cliente foi gerado!');
+        } else {
+            toast('error', 'Erro', response.msg);
         }
-        // 2. Salva no temp store com a ação 'e' (editar)
-        await api.temp.set('customer:edit', {
-            action: 'e',
-            ...customer,
-        });
-        // 3. Abre a modal
-        api.window.open('pages/customer', {
-            width: 600,
-            height: 500,
-            title: 'Editar Cliente',
-        });
     } catch (err) {
-        toast('error', 'Falha', 'Erro: ' + err.message);
+        toast('error', 'Falha', 'Erro ao processar impressão: ' + err.message);
     }
 }
+
+
+
 window.deleteCustomer = deleteCustomer;
 window.editCustomer = editCustomer;
+window.printCustomer = printCustomer;

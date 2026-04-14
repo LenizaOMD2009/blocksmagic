@@ -5,7 +5,7 @@ import Product from '../controller/Product.js';
 import Users from '../controller/Users.js';
 import Enterprise from '../controller/Enterprise.js';
 import Supplier from '../controller/Supplier.js';
-
+import { Print } from '../mixin/Print.js';
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
@@ -82,6 +82,9 @@ ipcMain.handle('customer:delete', async (_e, id) => {
     const result = await Customer.delete(id);
     if (result.status) broadcastReload('customer:reload');
     return result;
+});
+ipcMain.handle('customer:print', async (event, id) => {
+    return await Customer.print(id); // Chama aquele método que criamos no Controller
 });
 
 /////  PRODUTO
