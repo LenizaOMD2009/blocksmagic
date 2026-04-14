@@ -24,7 +24,7 @@ const __dirname = path.dirname(__filename);
 // Define se a aplicação está rodando em produção ou desenvolvimento
 // Se APP_ENV for diferente de 'development', considera como produção (true)
 // Se APP_ENV for 'development', IS_PROD será false
-const IS_PROD = process.env.APP_ENV !== 'development';
+const IS_PROD = process.env.APP_ENV !== 'development2';
 // Define o diretório raiz da aplicação
 // path.join sobe um nível (..) a partir da pasta config
 // ex: C:\projeto\config → C:\projeto
